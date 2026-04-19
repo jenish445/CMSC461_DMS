@@ -105,6 +105,52 @@ INSERT INTO Sale (sale_date, sale_price, financing_option, payment_method, vehic
 ('2024-05-01',29000,'loan','debit_card',9,9,1,1),
 ('2024-05-10',25000,'cash','cash',10,10,2,3);
 
+-- Loan
+INSERT INTO LOAN (customer_id, vehicle_id, loan_amount, interest_rate, loan_term, monthly_payment, status) VALUES
+(1,1,20000,5.5,60,380,'Approved'),
+(2,2,15000,4.5,48,340,'Approved'),
+(3,3,18000,6.0,60,350,'Pending'),
+(4,4,22000,5.0,72,360,'Approved'),
+(5,5,25000,6.5,72,400,'Approved'),
+(6,6,12000,3.5,36,320,'Rejected'),
+(7,7,27000,5.8,60,450,'Approved'),
+(8,8,30000,7.0,84,480,'Approved'),
+(9,9,14000,4.0,48,310,'Pending'),
+(10,10,21000,5.2,60,370,'Approved');
+
+
+-- Loan Payment
+INSERT INTO LOAN_PAYMENT (loan_id, payment_date, amount) VALUES
+(1,'2026-04-01',380),
+(2,'2026-04-02',340),
+(3,'2026-04-03',350),
+(4,'2026-04-04',360),
+(5,'2026-04-05',400),
+(6,'2026-04-06',320),
+(7,'2026-04-07',450),
+(8,'2026-04-08',480),
+(9,'2026-04-09',310),
+(10,'2026-04-10',370);
+
+
+-- Accounting transactions
+INSERT INTO ACCOUNTING_TRANSACTION (transaction_type, amount, transaction_date, department_id, payment_id) VALUES
+('Loan Payment',380,'2026-04-01',7,1),
+('Loan Payment',340,'2026-04-02',7,2),
+('Loan Payment',350,'2026-04-03',7,3),
+('Loan Payment',360,'2026-04-04',7,4),
+('Loan Payment',400,'2026-04-05',7,5),
+('Loan Payment',320,'2026-04-06',7,6),
+('Loan Payment',450,'2026-04-07',7,7),
+('Loan Payment',480,'2026-04-08',7,8),
+('Loan Payment',310,'2026-04-09',7,9),
+('Loan Payment',370,'2026-04-10',7,10);
+
+-- Sales revenue (Sales dept = 1)
+INSERT INTO ACCOUNTING_TRANSACTION (transaction_type, amount, transaction_date, department_id, sale_id) VALUES
+('Vehicle Sale',24000,'2024-01-01',1,1),
+('Vehicle Sale',26000,'2024-01-05',1,2);
+
 -- these should fail due to constraints
 
 -- department with a division that doesn't exist
