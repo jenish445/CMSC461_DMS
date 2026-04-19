@@ -93,3 +93,44 @@ CREATE TABLE Sale (
     CONSTRAINT fk_sale_department FOREIGN KEY (department_id) REFERENCES DEPARTMENT(department_id),
     CONSTRAINT fk_sale_employee FOREIGN KEY (employee_id) REFERENCES EMPLOYEE(employee_id)
 );
+
+
+CREATE TABLE LOAN (
+    loan_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    vehicle_id  INT NOT NULL,
+    loan_amount DECIMAL (10,2) NOT NULL CHECK (loan_amount > 0),
+    interest_rate DECIMAL (5, 2) NOT NULL CHECK (interest_rate >= 0), 
+    loan_term INT NOT NULL CHECK (loan_term > 0),
+    monthly_payment DECIMAL (10,2),
+    status VARCHAR (50) NOT NULL,
+
+    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
+    FOREIGN KEY (vehicle_id) REFERENCES Vehicle(vehicle_id)
+);
+
+CREATE TABLE LOAN_PAYMENT (
+    payment_id INT AUTO_INCREMENT PRIMARY KEY,
+    loan_id INT NOT NULL,
+    payment_date DATE NOT NULL,
+    amount DECIMAL(10,2) NOT NULL CHECK (amount > 0),
+
+    FOREIGN KEY (loan_id) REFERENCES LOAN(loan_id)
+);
+
+CREATE TABLE ACCOUNTING_TRANSACTION (
+    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+    transaction_type VARCHAR(50) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL CHECK (amount > 0),
+    transaction_date DATE NOT NULL,
+    department_id INT NOT NULL,
+
+    sale_id INT,
+    payment_id INT,
+
+    FOREIGN KEY (department_id) REFERENCES DEPARTMENT(department_id),
+    FOREIGN KEY (sales_id) REFERENCES SALE(sale_id),
+    FOREIGN KEY (payment_id) REFERENCES LOAN_PAYMENT(payment_id)
+)
+
+
